@@ -16,9 +16,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
-@Slf4j // logs
+@RequiredArgsConstructor @Slf4j // logs
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
     @Override
