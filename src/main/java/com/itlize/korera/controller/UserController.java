@@ -90,6 +90,26 @@ public class UserController {
         return ResponseEntity.ok().body(service.findByUserId(userid));
     }
 
+    //Controller/api to delete user information based on username
+    @GetMapping("/delete/username/{username}")
+    public ResponseEntity<?> deleteUserByUsername(@PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }
+        service.deleteByUsername(username);
+        return ResponseEntity.ok().body("User with username \"" + username + "\" was successfully deleted.");
+    }
+
+    //Controller/api to delete user information based on user id
+    @GetMapping("/delete/id/{userid}")
+    public ResponseEntity<?> deleteUserById(@PathVariable Integer userid){
+        if (!service.userIdExists(userid)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User id \"" + userid + "\" does not exists!");
+        }
+        service.deleteByUserId(userid);
+        return ResponseEntity.ok().body("User with user id \"" + userid + "\" was successfully deleted.");
+    }
+
     //Controller/api to get all the users' information
     @GetMapping("/getusers")
     public ResponseEntity<List<User>> getUsers(){
