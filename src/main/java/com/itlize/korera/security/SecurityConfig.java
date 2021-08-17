@@ -12,13 +12,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import static org.springframework.http.HttpMethod.GET;
 
 @Configuration
 @EnableWebSecurity
@@ -56,9 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //Cross-origin-resource-sharing
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/user/login").permitAll()// Allow  access without logging in
-                .antMatchers("/user/register").permitAll()
-                .antMatchers("/user/Admin/**").hasRole("ADMIN")
+                .antMatchers("/user/login").permitAll()// Allow  access to login path
+                .antMatchers("/user/register").permitAll() // Allow access to register path
+                .antMatchers(GET,"korera/user/**").hasAnyAuthority("ROLE")
+                .antMatchers("/user/admin/**").hasRole("ADMIN")
                 .anyRequest().fullyAuthenticated()// others need to be accessed after authentication
                 .and()
                 .logout().permitAll()

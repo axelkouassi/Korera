@@ -64,8 +64,13 @@ public class UserController {
 
 
     @GetMapping("/username")
-    public ResponseEntity<User> getUser(@RequestBody String username){
+    public ResponseEntity<User> getUserByUsername(@RequestBody String username){
         return ResponseEntity.ok().body(service.findByUsername(username));
+    }
+
+    @GetMapping("/{userid}")
+    public ResponseEntity<User> getUserById(@PathVariable Integer userid){
+        return ResponseEntity.ok().body(service.findByUserId(userid));
     }
 
     @GetMapping("/getusers")
