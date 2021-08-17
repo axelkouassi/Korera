@@ -27,6 +27,13 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private final PasswordEncoder passwordEncoder;
 
+    //Check if username exists
+    @Override
+    public boolean usernameExists(String username){
+
+        return userRepository.findByUsername(username).isPresent();
+    }
+
     @Override
     public User saveUser(User user) {
         log.info("Encrypting password.");
