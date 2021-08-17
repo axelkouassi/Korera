@@ -22,10 +22,10 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User saveUser(User user) {
@@ -44,6 +44,18 @@ public class UserServiceImpl implements UserService{
         if(user == null){
             throw new UsernameNotFoundException("Username: " + username + " was not found in the database.");
         }
+
+        return user;
+    }
+
+    @Override
+    public User findByUserId(Integer userId) {
+        log.info("Fetching user with id: " + userId);
+        User user =  userRepository.findById(userId).orElse(null);
+        if(user == null){
+            throw new UsernameNotFoundException("User id: " + userId + " was not found in the database.");
+        }
+
         return user;
     }
 
