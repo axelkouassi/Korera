@@ -71,12 +71,15 @@ public class UserController {
     }
 
 
-    @GetMapping("/username")
-    public ResponseEntity<User> getUserByUsername(@RequestBody String username){
+    @GetMapping("/username/{username}")
+    public ResponseEntity<?> getUserByUsername(@PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username does not exists!");
+        }
         return ResponseEntity.ok().body(service.findByUsername(username));
     }
 
-    @GetMapping("/{userid}")
+    @GetMapping("/id/{userid}")
     public ResponseEntity<User> getUserById(@PathVariable Integer userid){
         return ResponseEntity.ok().body(service.findByUserId(userid));
     }
