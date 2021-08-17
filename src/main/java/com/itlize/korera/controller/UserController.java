@@ -33,7 +33,7 @@ public class UserController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    //Controller/api to Register/create an account
+    //Controller/api to register/create an account
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder
@@ -108,6 +108,13 @@ public class UserController {
         }
         service.deleteByUserId(userid);
         return ResponseEntity.ok().body("User with user id \"" + userid + "\" was successfully deleted.");
+    }
+
+    //Controller/api to delete all users
+    @GetMapping("/delete/users")
+    public ResponseEntity<?> deleteUsers(){
+        service.deleteUsers();
+        return ResponseEntity.ok().body("All users have been successfully deleted.");
     }
 
     //Controller/api to get all the users' information
