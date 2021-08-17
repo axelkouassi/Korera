@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -33,12 +34,19 @@ public class UserController {
     private UserDetailsService userDetailsService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<?> createUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentContextPath()
                 .path("/korera/user/register")
                 .toUriString());
-        return ResponseEntity.created(uri).body(service.saveUser(user));
+        if (!service.usernameExists(user.getUsername())){
+            service.saveUser(user);
+        }else{
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists!");
+            //return ResponseEntity.status(409).body("Username already exists!");
+            //return new ResponseEntity<>("Username already exists!", HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.created(uri).body(user);
     }
 
     //sign in
