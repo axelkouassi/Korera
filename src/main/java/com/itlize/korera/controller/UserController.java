@@ -33,6 +33,7 @@ public class UserController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    //Controller/api to Register/create an account
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder
@@ -49,7 +50,7 @@ public class UserController {
         return ResponseEntity.created(uri).body(user);
     }
 
-    //sign in
+    //Controller/api to log in/generate authentication token to already registered account
     @GetMapping( "/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody User user )  throws Exception {
         try {
@@ -71,6 +72,7 @@ public class UserController {
     }
 
 
+    //Controller/api to get user information based on username
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username){
         if (!service.usernameExists(username)){
@@ -79,6 +81,7 @@ public class UserController {
         return ResponseEntity.ok().body(service.findByUsername(username));
     }
 
+    //Controller/api to get user information based on user id
     @GetMapping("/id/{userid}")
     public ResponseEntity<User> getUserById(@PathVariable Integer userid){
         if (!service.userIdExists(userid)){
@@ -87,6 +90,7 @@ public class UserController {
         return ResponseEntity.ok().body(service.findByUserId(userid));
     }
 
+    //Controller/api to get all the users' information
     @GetMapping("/getusers")
     public ResponseEntity<List<User>> getUsers(){
         return ResponseEntity.ok().body(service.getUsers());
