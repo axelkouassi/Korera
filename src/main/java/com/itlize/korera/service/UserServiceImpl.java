@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService{
     //Check if username exists
     @Override
     public boolean usernameExists(String username){
-
         return userRepository.findByUsername(username).isPresent();
     }
 
@@ -40,6 +39,7 @@ public class UserServiceImpl implements UserService{
         return userRepository.existsById(userId);
     }
 
+    //Saving user information
     @Override
     public User saveUser(User user) {
         log.info("Encrypting password.");
@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService{
         return userRepository.save(user);
     }
 
+    //Find user by username
     @Override
     public User findByUsername(String username) {
         log.info("Fetching user with username: " + username);
@@ -61,6 +62,7 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    //Find user by user id
     @Override
     public User findByUserId(Integer userId) {
         log.info("Fetching user with id: " + userId);
@@ -72,18 +74,28 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    //Find all users
     @Override
     public List<User> getUsers() {
         log.info("Fetching all users.");
         return userRepository.findAll();
     }
 
+    //Delete user by username
     @Override
     public void deleteByUsername(String username) {
         log.info("Deleting user with username: " + username);
         userRepository.deleteByUsername(username);
     }
 
+    //Delete user by user id
+    @Override
+    public void deleteByUserId(Integer userId) {
+        log.info("Deleting user with username: " + userId);
+        userRepository.deleteById(userId);
+    }
+
+    //Delete all users
     @Override
     public void deleteUsers() {
         log.info("Deleting all users.");
