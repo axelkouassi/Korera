@@ -34,6 +34,12 @@ public class UserServiceImpl implements UserService{
         return userRepository.findByUsername(username).isPresent();
     }
 
+    //Checking if user exists by Id
+    @Override
+    public boolean userIdExists(Integer userId){
+        return userRepository.existsById(userId);
+    }
+
     @Override
     public User saveUser(User user) {
         log.info("Encrypting password.");
