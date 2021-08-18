@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
     //Find user by username
     @Override
     public User findByUsername(String username) {
-        log.info("Fetching user with username: " + username);
+        log.info("Fetching user with username: " + username + "...");
         User user =  userRepository.findByUsername(username).orElse(null);
         if(user == null){
             throw new UsernameNotFoundException("Username: " + username + " was not found in the database.");
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService{
     //Find user by user id
     @Override
     public User findByUserId(Integer userId) {
-        log.info("Fetching user with id: " + userId);
+        log.info("Fetching user with id: " + userId + "...");
         User user =  userRepository.findById(userId).orElse(null);
         if(user == null){
             throw new UsernameNotFoundException("User id: " + userId + " was not found in the database.");
@@ -85,10 +85,11 @@ public class UserServiceImpl implements UserService{
     //Update username
     @Override
     public User updateUsername(User user, String username) {
-        log.info("Updating username.");
+        String original = user.getUsername();
+        log.info("Updating username " + original + " to " + username + "...");
         user.setUsername(username);
         user.setTimeUpdated(LocalDateTime.now());
-        log.info("Saving new updated username information to the database.");
+        log.info("Username " + original + " has been updated to " + username + ".");
         return userRepository.save(user);
     }
 
