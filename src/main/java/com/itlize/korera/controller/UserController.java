@@ -118,6 +118,19 @@ public class UserController {
         return ResponseEntity.ok().body(verifiedUser);
     }
 
+    //Controller/api to update email of user
+    @PostMapping("/update/email/{username}")
+    public ResponseEntity<?> updateEmail(@RequestBody User user, @PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }
+        User verifiedUser = service.findByUsername(username);
+        verifiedUser = service.updateEmail(verifiedUser,user.getEmail());
+        return ResponseEntity.ok().body(verifiedUser);
+    }
+
+
+
     //Controller/api to delete user information based on username
     @GetMapping("/delete/username/{username}")
     public ResponseEntity<?> deleteUserByUsername(@PathVariable String username){
