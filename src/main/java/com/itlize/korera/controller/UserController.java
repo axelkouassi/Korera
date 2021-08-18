@@ -140,6 +140,17 @@ public class UserController {
         return ResponseEntity.ok().body(verifiedUser);
     }
 
+    //Controller/api to update last name of user
+    @PostMapping("/update/lastname/{username}")
+    public ResponseEntity<?> updateLastName(@RequestBody User user, @PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }
+        User verifiedUser = service.findByUsername(username);
+        verifiedUser = service.updateLastName(verifiedUser,user.getLastName());
+        return ResponseEntity.ok().body(verifiedUser);
+    }
+
 
 
     //Controller/api to delete user information based on username
