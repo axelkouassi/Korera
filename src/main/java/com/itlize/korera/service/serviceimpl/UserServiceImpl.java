@@ -1,8 +1,9 @@
-package com.itlize.korera.service;
+package com.itlize.korera.service.serviceimpl;
 
 import com.itlize.korera.model.Role;
 import com.itlize.korera.model.User;
 import com.itlize.korera.repository.UserRepository;
+import com.itlize.korera.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j // logs
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private final UserRepository userRepository;
@@ -96,10 +97,11 @@ public class UserServiceImpl implements UserService{
     //Update password
     @Override
     public User updatePassword(User user, String password) {
-        log.info("Updating password.");
+        String original = user.getPassword();
+        log.info("Updating password " + original + " to " + password + "...");
         user.setPassword(password);
         user.setTimeUpdated(LocalDateTime.now());
-        log.info("Saving new updated password information to the database.");
+        log.info("Password " + original + " has been updated to " + password + ".");
         return userRepository.save(user);
     }
 

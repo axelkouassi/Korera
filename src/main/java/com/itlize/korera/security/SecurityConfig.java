@@ -1,7 +1,7 @@
 package com.itlize.korera.security;
 
 import com.itlize.korera.filter.JwtRequestFilter;
-import com.itlize.korera.service.UserDetailsServiceImpl;
+import com.itlize.korera.service.serviceimpl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.itlize.korera.service;
+package com.itlize.korera.service.serviceimpl;
 
 import com.itlize.korera.model.User;
 import com.itlize.korera.repository.UserRepository;

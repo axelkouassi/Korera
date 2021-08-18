@@ -1,6 +1,6 @@
 package com.itlize.korera.filter;
 
-import com.itlize.korera.service.UserDetailsServiceImpl;
+import com.itlize.korera.service.serviceimpl.UserDetailsServiceImpl;
 import com.itlize.korera.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
