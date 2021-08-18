@@ -143,10 +143,11 @@ public class UserServiceImpl implements UserService {
     //Update phone
     @Override
     public User updatePhone(User user, Integer phone) {
-        log.info("Updating first name.");
+        Integer original = user.getPhone();
+        log.info("Updating phone " + original + " to " + phone + "...");
         user.setPhone(phone);
         user.setTimeUpdated(LocalDateTime.now());
-        log.info("Saving new updated last name information to the database.");
+        log.info("Phone " + original + " has been updated to " + phone + ".");
         return userRepository.save(user);
     }
 

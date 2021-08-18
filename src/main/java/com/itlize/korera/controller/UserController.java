@@ -151,6 +151,17 @@ public class UserController {
         return ResponseEntity.ok().body(verifiedUser);
     }
 
+    //Controller/api to update phone of user
+    @PostMapping("/update/phone/{username}")
+    public ResponseEntity<?> updatePhone(@RequestBody User user, @PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }
+        User verifiedUser = service.findByUsername(username);
+        verifiedUser = service.updatePhone(verifiedUser,user.getPhone());
+        return ResponseEntity.ok().body(verifiedUser);
+    }
+
 
 
     //Controller/api to delete user information based on username
