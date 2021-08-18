@@ -96,7 +96,7 @@ public class UserController {
         return ResponseEntity.ok().body(service.getUsers());
     }
 
-    //Controller/api to update user information based on username
+    //Controller/api to update username of user
     @PostMapping("/update/username/{username}")
     public ResponseEntity<?> updateUsername(@RequestBody User user, @PathVariable String username){
         if (!service.usernameExists(username)){
@@ -104,6 +104,17 @@ public class UserController {
         }
         User verifiedUser = service.findByUsername(username);
         verifiedUser = service.updateUsername(verifiedUser,user.getUsername());
+        return ResponseEntity.ok().body(verifiedUser);
+    }
+
+    //Controller/api to update password of user
+    @PostMapping("/update/password/{username}")
+    public ResponseEntity<?> updatePassword(@RequestBody User user, @PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }
+        User verifiedUser = service.findByUsername(username);
+        verifiedUser = service.updatePassword(verifiedUser,user.getPassword());
         return ResponseEntity.ok().body(verifiedUser);
     }
 
