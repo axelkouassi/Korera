@@ -154,10 +154,11 @@ public class UserServiceImpl implements UserService {
     //Update phone
     @Override
     public User updateRole(User user, Role role) {
-        log.info("Updating first name.");
+        Role original = user.getRole();
+        log.info("Updating role " + original.name() + " to " + role.name() + "...");
         user.setRole(role);
         user.setTimeUpdated(LocalDateTime.now());
-        log.info("Saving new updated role information to the database.");
+        log.info("Role " + original + " has been updated to " + role.name() + ".");
         return userRepository.save(user);
     }
 

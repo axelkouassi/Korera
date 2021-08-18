@@ -162,6 +162,17 @@ public class UserController {
         return ResponseEntity.ok().body(verifiedUser);
     }
 
+    //Controller/api to update role of user
+    @PostMapping("/update/role/{username}")
+    public ResponseEntity<?> updateRole(@RequestBody User user, @PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }
+        User verifiedUser = service.findByUsername(username);
+        verifiedUser = service.updateRole(verifiedUser,user.getRole());
+        return ResponseEntity.ok().body(verifiedUser);
+    }
+
 
 
     //Controller/api to delete user information based on username
