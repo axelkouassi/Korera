@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.error("Username " + username + " not found in database.");
             throw new UsernameNotFoundException("Username " + username + " not found in database");
         }else{
-            log.error("Username found in database: " + username);
+            log.error("Username found in database: " + username + ".");
         }
         Collection<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
