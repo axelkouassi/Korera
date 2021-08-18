@@ -90,6 +90,23 @@ public class UserController {
         return ResponseEntity.ok().body(service.findByUserId(userid));
     }
 
+    //Controller/api to get all the users' information
+    @GetMapping("/getusers")
+    public ResponseEntity<List<User>> getUsers(){
+        return ResponseEntity.ok().body(service.getUsers());
+    }
+
+    //Controller/api to update user information based on username
+    @PostMapping("/update/username/{username}")
+    public ResponseEntity<?> updateUsername(@RequestBody User user, @PathVariable String username){
+        if (!service.usernameExists(username)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }
+        User verifiedUser = service.findByUsername(username);
+        verifiedUser = service.updateUsername(verifiedUser,user.getUsername());
+        return ResponseEntity.ok().body(verifiedUser);
+    }
+
     //Controller/api to delete user information based on username
     @GetMapping("/delete/username/{username}")
     public ResponseEntity<?> deleteUserByUsername(@PathVariable String username){
@@ -117,11 +134,7 @@ public class UserController {
         return ResponseEntity.ok().body("All users have been successfully deleted.");
     }
 
-    //Controller/api to get all the users' information
-    @GetMapping("/getusers")
-    public ResponseEntity<List<User>> getUsers(){
-        return ResponseEntity.ok().body(service.getUsers());
-    }
+
 
 
 }
