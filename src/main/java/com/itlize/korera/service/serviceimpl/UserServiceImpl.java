@@ -97,8 +97,10 @@ public class UserServiceImpl implements UserService {
     //Update password
     @Override
     public User updatePassword(User user, String password) {
-        String original = user.getPassword();
+        String original = passwordEncoder.encode(user.getPassword());
         log.info("Updating password " + original + " to " + password + "...");
+        log.info("Encoding new password " + password +"...");
+        password = passwordEncoder.encode(password);
         user.setPassword(password);
         user.setTimeUpdated(LocalDateTime.now());
         log.info("Password " + original + " has been updated to " + password + ".");
@@ -108,10 +110,11 @@ public class UserServiceImpl implements UserService {
     //Update email
     @Override
     public User updateEmail(User user, String email) {
-        log.info("Updating email.");
+        String original = user.getEmail();
+        log.info("Updating email " + original + " to " + email + "...");
         user.setEmail(email);
         user.setTimeUpdated(LocalDateTime.now());
-        log.info("Saving new updated email information to the database.");
+        log.info("Email " + original + " has been updated to " + email + ".");
         return userRepository.save(user);
     }
 
