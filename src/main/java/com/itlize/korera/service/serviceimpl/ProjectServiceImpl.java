@@ -8,12 +8,12 @@ import java.util.List;
 
 public class ProjectServiceImpl implements ProjectService {
     @Override
-    public boolean projectNameExists(String username) {
+    public boolean projectNameExists(String name) {
         return false;
     }
 
     @Override
-    public boolean projectIdExists(Integer projectId) {
+    public boolean projectIdExists(Integer id) {
         return false;
     }
 
@@ -23,12 +23,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findByName(String projectName) {
+    public Project findByName(String name) {
         return null;
     }
 
     @Override
-    public Project findById(Integer projectId) {
+    public Project findById(Integer id) {
         return null;
     }
 
@@ -48,12 +48,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void deleteByProjectName(String projectName) {
+    public void deleteByProjectName(String name) {
 
     }
 
     @Override
-    public void deleteByProjectId(Integer projectId) {
+    public void deleteByProjectId(Integer id) {
 
     }
 

@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProjectService {
-    boolean projectNameExists(String username);
-    boolean projectIdExists(Integer projectId);
+    boolean projectNameExists(String name);
+    boolean projectIdExists(Integer id);
     Project saveProject(Project project);
-    Project findByName(String projectName);
-    Project findById(Integer projectId);
+    Project findByName(String name);
+    Project findById(Integer id);
     List<Project> getProjectsByUser(User user);
     List<Project> getProjects();
     Project updateName(Project project, String name);
-    void deleteByProjectName(String projectName);
+    void deleteByProjectName(String name);
     void deleteByProjectId(Integer projectId);
     void deleteProjects();
 }
