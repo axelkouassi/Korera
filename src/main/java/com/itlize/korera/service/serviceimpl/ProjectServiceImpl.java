@@ -70,7 +70,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Project> getProjects() {
-        return null;
+        return projectRepository.findAll();
     }
 
     @Override
