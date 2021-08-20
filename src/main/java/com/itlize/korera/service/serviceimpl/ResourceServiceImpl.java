@@ -45,17 +45,35 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource findByName(String name) {
-        return null;
+        log.info("Fetching resource with name: " + name + "...");
+        Resource resource =  resourceRepository.findByResourceName(name).orElse(null);
+        if(resource== null){
+            throw new NullPointerException("Resource name: " + name + " was not found in the database.");
+        }
+        log.info("Resource " + name + " info: " + resource);
+        return resource;
     }
 
     @Override
     public Resource findByCode(String code) {
-        return null;
+        log.info("Fetching resource with code: " + code + "...");
+        Resource resource =  resourceRepository.findByResourceCode(code).orElse(null);
+        if(resource== null){
+            throw new NullPointerException("Resource code : " + code + " was not found in the database.");
+        }
+        log.info("Resource " + code + " info: " + resource);
+        return resource;
     }
 
     @Override
     public Resource findById(Integer id) {
-        return null;
+        log.info("Fetching resource with id: " + id + "...");
+        Resource resource =  resourceRepository.findById(id).orElse(null);
+        if(resource== null){
+            throw new NullPointerException("Resource id : " + id + " was not found in the database.");
+        }
+        log.info("Resource " + id + " info: " + resource);
+        return resource;
     }
 
     @Override
@@ -95,6 +113,6 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public void deleteResources() {
-
+        resourceRepository.deleteAll();
     }
 }
