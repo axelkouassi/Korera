@@ -92,4 +92,17 @@ public class Resource {
     public void setTimeUpdated(LocalDateTime timeUpdated) {
         this.timeUpdated = timeUpdated;
     }
+
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "resourceId=" + resourceId +
+                ", resourceName='" + resourceName + '\'' +
+                ", resourceCode='" + resourceCode + '\'' +
+                ", columns=" + columns +
+                ", projectResources=" + projectResources +
+                ", timeCreated=" + timeCreated +
+                ", timeUpdated=" + timeUpdated +
+                '}';
+    }
 }
