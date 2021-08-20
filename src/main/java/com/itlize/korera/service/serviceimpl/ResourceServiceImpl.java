@@ -33,7 +33,7 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public boolean resourceIdExists(Integer id) {
-        return false;
+        return resourceRepository.existsById(id);
     }
 
     @Override
@@ -85,12 +85,12 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public void deleteByCode(String code) {
-
+        resourceRepository.deleteByResourceCode(code);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        resourceRepository.deleteById(id);
     }
 
     @Override

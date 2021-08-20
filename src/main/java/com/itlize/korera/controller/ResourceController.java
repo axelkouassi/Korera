@@ -55,6 +55,26 @@ public class ResourceController {
         return ResponseEntity.ok().body("Resource \"" + name + "\" was successfully deleted.");
     }
 
+    //Controller/api to delete resource based on code
+    @GetMapping("/delete/code/{code}")
+    public ResponseEntity<?> deleteByCode(@PathVariable String code){
+        if (!resourceService.resourceCodeExists(code)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \"" + code + "\" does not exists!");
+        }
+        resourceService.deleteByCode(code);
+        return ResponseEntity.ok().body("Resource \"" + code + "\" was successfully deleted.");
+    }
+
+    //Controller/api to delete resource by id
+    @GetMapping("/delete/id/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id){
+        if (!resourceService.resourceIdExists(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource with id \"" + id + "\" does not exists!");
+        }
+        resourceService.deleteById(id);
+        return ResponseEntity.ok().body("Resource with id \"" + id + "\" was successfully deleted.");
+    }
+
     /*//Controller/api to get project information based on project name
     @GetMapping("/projectname/{projectname}")
     public ResponseEntity<?> getProjectByName(@PathVariable String projectname){
@@ -116,15 +136,6 @@ public class ResourceController {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-    //Controller/api to delete project by id
-    @GetMapping("/delete/id/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer id){
-        if (!projectService.projectIdExists(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with id \"" + id + "\" does not exists!");
-        }
-        projectService.deleteByProjectId(id);
-        return ResponseEntity.ok().body("Project with id \"" + id + "\" was successfully deleted.");
-    }
 
     //Controller/api to delete all the projects
     @GetMapping("/delete/projects")
