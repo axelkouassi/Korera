@@ -56,4 +56,15 @@ public class ProjectController {
         }
         return ResponseEntity.ok().body(projectService.findByName(projectname));
     }
+
+    //Controller/api to get project information based on project id
+    @GetMapping("/projectid/{projectid}")
+    public ResponseEntity<?> getProjectById(@PathVariable Integer projectid){
+        if (!projectService.projectIdExists(projectid)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \""
+                    + projectService.findById(projectid).getProjectId()
+                    + "\" does not exists!");
+        }
+        return ResponseEntity.ok().body(projectService.findById(projectid));
+    }
 }
