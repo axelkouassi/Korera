@@ -8,6 +8,7 @@ import com.itlize.korera.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -67,7 +68,7 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getProjectsByUsername(String username) {
         log.info("Fetching projects by username: " + username + "...");
         List<Project> list = projectRepository.findAllByUser_Username(username);
-        log.info("Contents of list: " + list);
+        log.info("List of all projects associated with user " + username + ": " + list);
         return projectRepository.findAllByUser_Username(username);
     }
 
@@ -75,12 +76,28 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getProjects() {
         log.info("Fetching list of projects...");
         List<Project> list = projectRepository.findAll();
-        log.info("Contents of list: " + list);
+        log.info("List of all projects: " + list);
         return projectRepository.findAll();
     }
 
     @Override
-    public Project updateName(Project project, String name) {
+    public Project updateUser(String name, String username) {
+        log.info("Updating user associated with project " + name + "  to " + username);
+        User user = userRepository.findByUsername(username).orElse(null);
+        Project project = projectRepository.findByProjectName(name).orElse(null);
+        if(user == null){
+            throw new UsernameNotFoundException("Username: " + username + " was not found in the database.");
+        }else if(project == null){
+            throw new NullPointerException("Project: " + name + " was not found in the database.");
+        }else{
+            project.setUser(user);
+            log.info("Project " + name + ": " + project);
+        }
+        return project;
+    }
+
+    @Override
+    public Project updateName(String name) {
         return null;
     }
 
