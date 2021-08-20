@@ -64,12 +64,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> getProjectsByUser(User user) {
-        return null;
+    public List<Project> getProjectsByUsername(String username) {
+        log.info("Fetching projects by username: " + username + "...");
+        List<Project> list = projectRepository.findAllByUser_Username(username);
+        log.info("Contents of list: " + list);
+        return projectRepository.findAllByUser_Username(username);
     }
 
     @Override
     public List<Project> getProjects() {
+        log.info("Fetching list of projects...");
+        List<Project> list = projectRepository.findAll();
+        log.info("Contents of list: " + list);
         return projectRepository.findAll();
     }
 
