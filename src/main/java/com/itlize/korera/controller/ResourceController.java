@@ -84,6 +84,18 @@ public class ResourceController {
         return ResponseEntity.ok().body(resourceService.getResources());
     }
 
+    //Controller/api to update resource name
+    @PostMapping("/update/name/{name}/{newname}")
+    public ResponseEntity<?> updateName(@PathVariable String name, @PathVariable String newname){
+        Resource resource = resourceService.findByName(name);
+        if (!resourceService.resourceNameExists(name)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \"" + resource.getResourceName()
+                    + "\" does not exists!");
+        }
+        resourceService.updateName(resource,newname);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
+    }
+
     //Controller/api to delete resource based on name
     @GetMapping("/delete/name/{name}")
     public ResponseEntity<?> deleteByName(@PathVariable String name){
@@ -146,15 +158,6 @@ public class ResourceController {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-    //Controller/api to update project name
-    @PostMapping("/update/{name}/{newname}")
-    public ResponseEntity<?> updateName(@PathVariable String name, @PathVariable String newname){
-        Project project = projectService.findByName(name);
-        if (!projectService.projectNameExists(project.getProjectName())){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \"" + project.getProjectName() + "\" does not exists!");
-        }
-        projectService.updateName(project,newname);
-        return new ResponseEntity<>(project, HttpStatus.OK);
-    }
+
     */
 }
