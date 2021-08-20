@@ -81,7 +81,7 @@ public class ProjectController {
     }
 
     //Controller/api to update user associated with project
-    @PostMapping("/update/{name}/{username}")
+    @PostMapping("/update/user/{name}/{username}")
     public ResponseEntity<?> updateUser(@PathVariable String name, @PathVariable String username){
         User user = userService.findByUsername(username);
         Project project = projectService.findByName(name);
@@ -95,4 +95,16 @@ public class ProjectController {
         }
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
+
+    //Controller/api to update project name
+    @PostMapping("/update/{name}/{newname}")
+    public ResponseEntity<?> updateName(@PathVariable String name, @PathVariable String newname){
+        Project project = projectService.findByName(name);
+        if (!projectService.projectNameExists(project.getProjectName())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \"" + project.getProjectName() + "\" does not exists!");
+        }
+        projectService.updateName(project,newname);
+        return new ResponseEntity<>(project, HttpStatus.OK);
+    }
+
 }
