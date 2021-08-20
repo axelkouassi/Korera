@@ -26,7 +26,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     @Override
     public boolean projectNameExists(String name) {
-        return false;
+        return projectRepository.existsByProjectName(name);
     }
 
     @Override
@@ -45,7 +45,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project findByName(String name) {
-        return null;
+        log.info("Fetching project with name: " + name + "...");
+        Project project =  projectRepository.findByProjectName(name).orElse(null);
+        if(project == null){
+            throw new NullPointerException("Project name: " + name + " was not found in the database.");
+        }
+        return project;
     }
 
     @Override
