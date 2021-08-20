@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project,Integer> {
+    boolean existsByProjectName(String name);
     Optional<Project> findByProjectName(String projectName);
     void deleteByProjectName(String projectName);
 }
