@@ -96,6 +96,18 @@ public class ResourceController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
+    //Controller/api to update resource code
+    @PostMapping("/update/code/{code}/{newcode}")
+    public ResponseEntity<?> updateCode(@PathVariable String code, @PathVariable String newcode){
+        Resource resource = resourceService.findByCode(code);
+        if (!resourceService.resourceCodeExists(code)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \"" + resource.getResourceCode()
+                    + "\" does not exists!");
+        }
+        resourceService.updateCode(resource,newcode);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
+    }
+
     //Controller/api to delete resource based on name
     @GetMapping("/delete/name/{name}")
     public ResponseEntity<?> deleteByName(@PathVariable String name){
