@@ -13,7 +13,7 @@ public interface ProjectService {
     Project saveProject(Project project);
     Project findByName(String name);
     Project findById(Integer id);
-    List<Project> getProjectsByUser(User user);
+    List<Project> getProjectsByUsername(String username);
     List<Project> getProjects();
     Project updateName(Project project, String name);
     void deleteByProjectName(String name);
