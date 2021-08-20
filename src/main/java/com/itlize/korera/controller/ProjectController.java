@@ -68,9 +68,31 @@ public class ProjectController {
         return ResponseEntity.ok().body(projectService.findById(projectid));
     }
 
+    //Controller/api to get all the projects' information by user
+    @GetMapping("/getprojects/{username}")
+    public ResponseEntity<?> getProjectsByUsername(@PathVariable String username){
+        return ResponseEntity.ok().body(projectService.getProjectsByUsername(username));
+    }
+
     //Controller/api to get all the projects' information
     @GetMapping("/getprojects")
     public ResponseEntity<?> getProjects(){
         return ResponseEntity.ok().body(projectService.getProjects());
+    }
+
+    //Controller/api to update user associated with project
+    @PostMapping("/update/{name}/{username}")
+    public ResponseEntity<?> updateUser(@PathVariable String name, @PathVariable String username){
+        User user = userService.findByUsername(username);
+        Project project = projectService.findByName(name);
+        if (!userService.usernameExists(user.getUsername())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
+        }else if (!projectService.projectNameExists(project.getProjectName())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \"" + project.getProjectName() + "\" does not exists!");
+        }else{
+            project.setUser(user);
+            projectService.updateUser(name, username);
+        }
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 }
