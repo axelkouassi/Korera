@@ -45,6 +45,28 @@ public class ResourceController {
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
+    //Controller/api to get resource information based on name
+    @GetMapping("/name/{name}")
+    public ResponseEntity<?> getByName(@PathVariable String name){
+        if (!resourceService.resourceNameExists(name)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \""
+                    + resourceService.findByName(name).getResourceName()
+                    + "\" does not exists!");
+        }
+        return ResponseEntity.ok().body(resourceService.findByName(name));
+    }
+
+    //Controller/api to get project information based on project id
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id){
+        if (!resourceService.resourceIdExists(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \""
+                    + resourceService.findById(id).getResourceId()
+                    + "\" does not exists!");
+        }
+        return ResponseEntity.ok().body(resourceService.findById(id));
+    }
+
     //Controller/api to delete resource based on name
     @GetMapping("/delete/name/{name}")
     public ResponseEntity<?> deleteByName(@PathVariable String name){
@@ -75,27 +97,14 @@ public class ResourceController {
         return ResponseEntity.ok().body("Resource with id \"" + id + "\" was successfully deleted.");
     }
 
-    /*//Controller/api to get project information based on project name
-    @GetMapping("/projectname/{projectname}")
-    public ResponseEntity<?> getProjectByName(@PathVariable String projectname){
-        if (!projectService.projectNameExists(projectname)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \""
-                    + projectService.findByName(projectname).getProjectName()
-                    + "\" does not exists!");
-        }
-        return ResponseEntity.ok().body(projectService.findByName(projectname));
+    //Controller/api to delete all the resources
+    @GetMapping("/delete/resources")
+    public ResponseEntity<?> deleteResources(){
+        resourceService.deleteResources();
+        return ResponseEntity.ok().body("All resources have been successfully deleted.");
     }
 
-    //Controller/api to get project information based on project id
-    @GetMapping("/projectid/{projectid}")
-    public ResponseEntity<?> getProjectById(@PathVariable Integer projectid){
-        if (!projectService.projectIdExists(projectid)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \""
-                    + projectService.findById(projectid).getProjectId()
-                    + "\" does not exists!");
-        }
-        return ResponseEntity.ok().body(projectService.findById(projectid));
-    }
+    /*
 
     //Controller/api to get all the projects' information by user
     @GetMapping("/getprojects/{username}")
@@ -135,12 +144,5 @@ public class ResourceController {
         projectService.updateName(project,newname);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
-
-
-    //Controller/api to delete all the projects
-    @GetMapping("/delete/projects")
-    public ResponseEntity<?> deleteProjects(){
-        projectService.deleteProjects();
-        return ResponseEntity.ok().body("All projects have been successfully deleted.");
-    }*/
+    */
 }
