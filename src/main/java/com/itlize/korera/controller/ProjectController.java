@@ -107,4 +107,14 @@ public class ProjectController {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
+    //Controller/api to delete project based on name
+    @GetMapping("/delete/name/{name}")
+    public ResponseEntity<?> deleteByName(@PathVariable String name){
+        if (!projectService.projectNameExists(name)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \"" + name + "\" does not exists!");
+        }
+        projectService.deleteByProjectName(name);
+        return ResponseEntity.ok().body("Project \"" + name + "\" was successfully deleted.");
+    }
+
 }
