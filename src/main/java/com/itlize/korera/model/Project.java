@@ -88,7 +88,7 @@ public class Project {
         return "Project{" +
                 "projectId=" + projectId +
                 ", projectName='" + projectName + '\'' +
-                ", user=" + user +
+                ", userId=" + user.getUserId() +
                 ", projectResource=" + projectResource +
                 ", timeCreated=" + timeCreated +
                 ", timeUpdated=" + timeUpdated +
