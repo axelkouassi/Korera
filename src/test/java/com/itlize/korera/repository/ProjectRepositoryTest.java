@@ -86,6 +86,15 @@ class ProjectRepositoryTest {
 
     @Test
     void findByProjectName() {
+        String name = "project1";
+        boolean actual = projectRepository.existsByProjectName(name);
+        assertTrue(actual);
+        Project project;
+        project = new Project();
+        if(projectRepository.findByProjectName(name).isPresent()) {
+            project = projectRepository.findByProjectName(name).get();
+        }
+        assertEquals(name,project.getProjectName());
     }
 
     @Test
