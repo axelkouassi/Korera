@@ -108,14 +108,14 @@ public class ProjectServiceImpl implements ProjectService {
     public void deleteByProjectName(String name) {
         log.info("Deleting project " + name + "...");
         projectRepository.deleteByProjectName(name);
-        log.info("Project with name " + name + "has been successfully deleted.");
+        log.info("Project with name " + name + " has been successfully deleted.");
     }
 
     @Override
     public void deleteByProjectId(Integer id) {
         log.info("Deleting project with id " + id + "...");
         projectRepository.deleteById(id);
-        log.info("Project with id " + id + "has been successfully deleted.");
+        log.info("Project with id " + id + " has been successfully deleted.");
 
     }
 
