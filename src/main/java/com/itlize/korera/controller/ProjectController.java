@@ -67,4 +67,10 @@ public class ProjectController {
         }
         return ResponseEntity.ok().body(projectService.findById(projectid));
     }
+
+    //Controller/api to get all the projects' information
+    @GetMapping("/getprojects")
+    public ResponseEntity<?> getProjects(){
+        return ResponseEntity.ok().body(projectService.getProjects());
+    }
 }
