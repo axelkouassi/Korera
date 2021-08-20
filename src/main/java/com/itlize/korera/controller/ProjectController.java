@@ -127,4 +127,11 @@ public class ProjectController {
         return ResponseEntity.ok().body("Project with id \"" + id + "\" was successfully deleted.");
     }
 
+    //Controller/api to delete all the projects
+    @GetMapping("/delete/projects")
+    public ResponseEntity<?> deleteProjects(){
+        projectService.deleteProjects();
+        return ResponseEntity.ok().body("All projects have been successfully deleted.");
+    }
+
 }
