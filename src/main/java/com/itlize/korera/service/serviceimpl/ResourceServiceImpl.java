@@ -83,7 +83,10 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public List<Resource> getResources() {
-        return null;
+        log.info("Fetching list of projects...");
+        List<Resource> list = resourceRepository.findAll();
+        log.info("List of all projects: " + list);
+        return resourceRepository.findAll();
     }
 
     @Override
