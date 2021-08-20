@@ -117,4 +117,14 @@ public class ProjectController {
         return ResponseEntity.ok().body("Project \"" + name + "\" was successfully deleted.");
     }
 
+    //Controller/api to delete project by id
+    @GetMapping("/delete/id/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id){
+        if (!projectService.projectIdExists(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with id \"" + id + "\" does not exists!");
+        }
+        projectService.deleteByProjectId(id);
+        return ResponseEntity.ok().body("Project with id \"" + id + "\" was successfully deleted.");
+    }
+
 }
