@@ -45,4 +45,15 @@ public class ProjectController {
         return new ResponseEntity<>("Project " + project.getProjectName() +
                 " has been successfully created.", HttpStatus.CREATED);
     }
+
+    //Controller/api to get project information based on project name
+    @GetMapping("/projectname/{projectname}")
+    public ResponseEntity<?> getProjectByName(@PathVariable String projectname){
+        if (!projectService.projectNameExists(projectname)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \""
+                    + projectService.findByName(projectname).getProjectName()
+                    + "\" does not exists!");
+        }
+        return ResponseEntity.ok().body(projectService.findByName(projectname));
+    }
 }
