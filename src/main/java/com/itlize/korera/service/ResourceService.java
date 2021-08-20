@@ -17,7 +17,7 @@ public interface ResourceService {
     Resource findById(Integer id);
     List<Resource> getResourcesByProject(Project project);
     List<Resource> getResources();
-    Project updateName(Project project, String name);
+    Resource updateName(Resource resource, String name);
     Project updateCode(Project project, String code);
     void deleteByName(String name);
     void deleteByCode(String code);

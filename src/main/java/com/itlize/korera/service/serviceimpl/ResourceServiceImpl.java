@@ -90,8 +90,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public Project updateName(Project project, String name) {
-        return null;
+    public Resource updateName(Resource resource, String name) {
+        log.info("Updating resource name to " + name);
+        resource.setResourceName(name);
+        log.info("Resource " + name + ": " + resource);
+        return resource;
     }
 
     @Override
