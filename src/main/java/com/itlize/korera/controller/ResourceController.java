@@ -56,6 +56,17 @@ public class ResourceController {
         return ResponseEntity.ok().body(resourceService.findByName(name));
     }
 
+    //Controller/api to get resource information based on code
+    @GetMapping("/code/{code}")
+    public ResponseEntity<?> getByCode(@PathVariable String code){
+        if (!resourceService.resourceCodeExists(code)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \""
+                    + resourceService.findByCode(code).getResourceCode()
+                    + "\" does not exists!");
+        }
+        return ResponseEntity.ok().body(resourceService.findByCode(code));
+    }
+
     //Controller/api to get project information based on project id
     @GetMapping("/id/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id){
@@ -65,6 +76,12 @@ public class ResourceController {
                     + "\" does not exists!");
         }
         return ResponseEntity.ok().body(resourceService.findById(id));
+    }
+
+    //Controller/api to get all the resources' information
+    @GetMapping("/getresources")
+    public ResponseEntity<?> getResources(){
+        return ResponseEntity.ok().body(resourceService.getResources());
     }
 
     //Controller/api to delete resource based on name
@@ -112,11 +129,6 @@ public class ResourceController {
         return ResponseEntity.ok().body(projectService.getProjectsByUsername(username));
     }
 
-    //Controller/api to get all the projects' information
-    @GetMapping("/getprojects")
-    public ResponseEntity<?> getProjects(){
-        return ResponseEntity.ok().body(projectService.getProjects());
-    }
 
     //Controller/api to update user associated with project
     @PostMapping("/update/user/{name}/{username}")
