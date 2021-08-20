@@ -31,7 +31,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public boolean projectIdExists(Integer id) {
-        return false;
+        return projectRepository.existsById(id);
     }
 
     @Override
@@ -55,7 +55,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project findById(Integer id) {
-        return null;
+        log.info("Fetching project with id: " + id + "...");
+        Project project =  projectRepository.findById(id).orElse(null);
+        if(project == null){
+            throw new NullPointerException("Project id: " + id + " was not found in the database.");
+        }
+        return project;
     }
 
     @Override
