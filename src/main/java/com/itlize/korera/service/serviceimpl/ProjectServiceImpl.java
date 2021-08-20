@@ -97,8 +97,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project updateName(String name) {
-        return null;
+    public Project updateName(Project project, String name) {
+        log.info("Updating project name to " + name);
+        project.setProjectName(name);
+        log.info("Project " + name + ": " + project);
+        return project;
     }
 
     @Override
