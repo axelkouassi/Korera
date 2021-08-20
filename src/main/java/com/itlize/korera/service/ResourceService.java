@@ -18,6 +18,7 @@ public interface ResourceService {
     List<Resource> getResourcesByProject(Project project);
     List<Resource> getResources();
     Resource updateName(Resource resource, String name);
+    Resource updateCode(Resource resource, String code);
     Project updateCode(Project project, String code);
     void deleteByName(String name);
     void deleteByCode(String code);

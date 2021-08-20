@@ -93,7 +93,15 @@ public class ResourceServiceImpl implements ResourceService {
     public Resource updateName(Resource resource, String name) {
         log.info("Updating resource name to " + name);
         resource.setResourceName(name);
-        log.info("Resource " + name + ": " + resource);
+        log.info("Resource name " + name + ": " + resource);
+        return resource;
+    }
+
+    @Override
+    public Resource updateCode(Resource resource, String code) {
+        log.info("Updating resource code to " + code);
+        resource.setResourceCode(code);
+        log.info("Resource code " + code + ": " + resource);
         return resource;
     }
 
