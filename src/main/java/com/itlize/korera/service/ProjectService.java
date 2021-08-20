@@ -16,7 +16,7 @@ public interface ProjectService {
     List<Project> getProjectsByUsername(String username);
     List<Project> getProjects();
     Project updateUser(String name, String username);
-    Project updateName(String name);
+    Project updateName(Project project, String name);
     void deleteByProjectName(String name);
     void deleteByProjectId(Integer projectId);
     void deleteProjects();
