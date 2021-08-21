@@ -29,7 +29,7 @@ public class ColumnServiceImpl implements ColumnService {
     private final ColumnRepository columnRepository;
     @Override
     public boolean columnContentExists(String content) {
-        return false;
+        return columnRepository.existsByContent(content);
     }
 
     @Override
@@ -48,7 +48,14 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public Column findByContent(String content) {
-        return null;
+        log.info("Fetching column with content: " + content + "...");
+        Column column =  columnRepository.findByContent(content).orElse(null);
+        if(column == null){
+            throw new NullPointerException("Column content: " + content
+                    + " was not found in the database.");
+        }
+        log.info("Column info: " + column);
+        return column;
     }
 
     @Override
