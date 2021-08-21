@@ -42,16 +42,18 @@ public class ColumnController {
         return new ResponseEntity<>(column, HttpStatus.CREATED);
     }
 
-    /*//Controller/api to get resource information based on name
-    @GetMapping("/name/{name}")
-    public ResponseEntity<?> getByName(@PathVariable String name){
-        if (!resourceService.resourceNameExists(name)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \""
-                    + resourceService.findByName(name).getResourceName()
+    //Controller/api to get column information based on name
+    @GetMapping("/content/{content}")
+    public ResponseEntity<?> getByContent(@PathVariable String content){
+        if (!columnService.columnContentExists(content)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column content \""
+                    + columnService.findByContent(content).getContent()
                     + "\" does not exists!");
         }
-        return ResponseEntity.ok().body(resourceService.findByName(name));
+        return ResponseEntity.ok().body(columnService.findByContent(content));
     }
+
+    /*
 
     //Controller/api to get resource information based on code
     @GetMapping("/code/{code}")
