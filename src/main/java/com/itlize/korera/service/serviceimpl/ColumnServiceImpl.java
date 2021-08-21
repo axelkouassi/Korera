@@ -33,6 +33,11 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
+    public boolean columnTypeExists(ColumnType type) {
+        return columnRepository.existsByColumnType(type);
+    }
+
+    @Override
     public boolean columnIdExists(Integer id) {
         return false;
     }
@@ -59,8 +64,15 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
-    public Column findByType(ColumnType type) {
-        return null;
+    public List<Column> findColumnsByType(ColumnType type) {
+        log.info("Fetching list of columns with type: " + type.name() + "...");
+        if(!columnRepository.existsByColumnType(type)){
+            throw new NullPointerException("Column type : " + type.name()
+                    + " was not found in the database.");
+        }
+        List<Column> list = columnRepository.findAllByColumnType(type);
+        log.info("List of columns with type " + type + ": " + list);
+        return columnRepository.findAllByColumnType(type);
     }
 
     @Override
