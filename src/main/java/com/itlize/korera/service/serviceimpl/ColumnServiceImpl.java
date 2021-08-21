@@ -4,11 +4,29 @@ import com.itlize.korera.model.Column;
 import com.itlize.korera.model.ColumnType;
 import com.itlize.korera.model.Project;
 import com.itlize.korera.model.Resource;
+import com.itlize.korera.repository.ColumnRepository;
+import com.itlize.korera.repository.ProjectRepository;
+import com.itlize.korera.repository.UserRepository;
 import com.itlize.korera.service.ColumnService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j // logs
 public class ColumnServiceImpl implements ColumnService {
+
+    @Autowired
+    private final UserRepository userRepository;
+    @Autowired
+    private final ColumnRepository columnRepository;
     @Override
     public boolean columnContentExists(String content) {
         return false;
@@ -21,7 +39,11 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public Column saveColumn(Column column) {
-        return null;
+        log.info("Creating column " + column.getContent() + "...");
+        column.setTimeCreated(LocalDateTime.now());
+        column.setTimeUpdated(LocalDateTime.now());
+        log.info("Column " + column.getContent() + " has been created and saved to the database.");
+        return columnRepository.save(column);
     }
 
     @Override
