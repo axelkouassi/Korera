@@ -94,7 +94,7 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public List<Column> getColumns() {
-        return null;
+        return columnRepository.findAll();
     }
 
     @Override
