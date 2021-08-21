@@ -10,10 +10,11 @@ import java.util.Optional;
 
 public interface ColumnService {
     boolean columnContentExists(String content);
+    boolean columnTypeExists(ColumnType type);
     boolean columnIdExists(Integer id);
     Column saveColumn(Column column);
     Column findByContent(String content);
-    Column findByType(ColumnType type);
+    List<Column> findColumnsByType(ColumnType type);
     Column findById(Integer id);
     List<Column> getColumsByResource(Resource resource);
     List<Column> getColumns();
