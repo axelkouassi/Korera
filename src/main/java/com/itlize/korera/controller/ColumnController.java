@@ -54,6 +54,17 @@ public class ColumnController {
         return ResponseEntity.ok().body(columnService.findByContent(content));
     }
 
+    //Controller/api to get column information based on column id
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id){
+        if (!columnService.columnIdExists(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column with id \""
+                    + columnService.findById(id).getColumnId()
+                    + "\" does not exists!");
+        }
+        return ResponseEntity.ok().body(columnService.findById(id));
+    }
+
     //Controller/api to get column information based on type
     @GetMapping("/type/{type}")
     public ResponseEntity<?> getByType(@PathVariable ColumnType type){
