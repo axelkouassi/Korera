@@ -39,7 +39,7 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public boolean columnIdExists(Integer id) {
-        return false;
+        return columnRepository.existsById(id);
     }
 
     @Override
@@ -77,7 +77,14 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public Column findById(Integer id) {
-        return null;
+        log.info("Fetching column with id: " + id + "...");
+        Column column =  columnRepository.findById(id).orElse(null);
+        if(column == null){
+            throw new NullPointerException("Column with id: " + id
+                    + " was not found in the database.");
+        }
+        log.info("Column info: " + column);
+        return column;
     }
 
     @Override
