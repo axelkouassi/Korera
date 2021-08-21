@@ -81,4 +81,16 @@ public class Column {
     public void setTimeUpdated(LocalDateTime timeUpdated) {
         this.timeUpdated = timeUpdated;
     }
+
+    @Override
+    public String toString() {
+        return "Column{" +
+                "columnId=" + columnId +
+                ", content='" + content + '\'' +
+                ", columnType=" + columnType +
+                ", resource=" + resource +
+                ", timeCreated=" + timeCreated +
+                ", timeUpdated=" + timeUpdated +
+                '}';
+    }
 }
