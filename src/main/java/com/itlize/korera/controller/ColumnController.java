@@ -1,6 +1,7 @@
 package com.itlize.korera.controller;
 
 import com.itlize.korera.model.Column;
+import com.itlize.korera.model.ColumnType;
 import com.itlize.korera.model.Resource;
 import com.itlize.korera.service.*;
 import com.itlize.korera.util.JwtUtil;
@@ -42,7 +43,7 @@ public class ColumnController {
         return new ResponseEntity<>(column, HttpStatus.CREATED);
     }
 
-    //Controller/api to get column information based on name
+    //Controller/api to get column information based on content
     @GetMapping("/content/{content}")
     public ResponseEntity<?> getByContent(@PathVariable String content){
         if (!columnService.columnContentExists(content)){
@@ -51,6 +52,16 @@ public class ColumnController {
                     + "\" does not exists!");
         }
         return ResponseEntity.ok().body(columnService.findByContent(content));
+    }
+
+    //Controller/api to get column information based on type
+    @GetMapping("/type/{type}")
+    public ResponseEntity<?> getByType(@PathVariable ColumnType type){
+        if (!columnService.columnTypeExists(type)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column type \""
+                    + type + "\" does not exists!");
+        }
+        return ResponseEntity.ok().body(columnService.findColumnsByType(type));
     }
 
     /*
