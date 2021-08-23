@@ -113,7 +113,12 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public Column updateType(Column column, ColumnType type) {
-        return null;
+        log.info("Updating column's type " + column.getColumnType() + " to " + type);
+        column.setColumnType(type);
+        column.setTimeUpdated(LocalDateTime.now());
+        log.info("Column's type " + column.getColumnType() + " has been updated to " + type);
+        log.info("Column: " + column);
+        return column;
     }
 
     @Override
