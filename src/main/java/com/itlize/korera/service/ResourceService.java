@@ -18,6 +18,7 @@ public interface ResourceService {
     Resource findByCode(String code);
     Resource findById(Integer id);
     List<ProjectResource> getResourcesByProject(String projectName);
+    List<ProjectResource> getProjectsByResource(String resourceName);
     List<Resource> getResources();
     Resource updateName(Resource resource, String name);
     Resource updateCode(Resource resource, String code);
