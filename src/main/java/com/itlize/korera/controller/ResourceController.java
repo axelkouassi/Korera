@@ -47,7 +47,7 @@ public class ResourceController {
 
     //Controller/api to add a resource to a project
     @PostMapping("/add/project/{resourcename}/{projectname}")
-    public ResponseEntity<?> createResource(@PathVariable String resourcename
+    public ResponseEntity<?> addResourceToProject(@PathVariable String resourcename
             , @PathVariable String projectname) {
         return new ResponseEntity<>(resourceService.addResourceToProject(resourcename, projectname)
                 , HttpStatus.OK);
