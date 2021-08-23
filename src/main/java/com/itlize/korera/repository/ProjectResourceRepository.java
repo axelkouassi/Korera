@@ -1,5 +1,6 @@
 package com.itlize.korera.repository;
 
+import com.itlize.korera.model.Project;
 import com.itlize.korera.model.ProjectResource;
 import com.itlize.korera.model.Resource;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,6 @@ import java.util.List;
 public interface ProjectResourceRepository extends JpaRepository<ProjectResource,Integer> {
     List<ProjectResource> findByProject_ProjectName(String projectName);
     List<ProjectResource> findByResource_ResourceName(String resourceName);
+    ProjectResource findByProject(Project project);
 
 }
