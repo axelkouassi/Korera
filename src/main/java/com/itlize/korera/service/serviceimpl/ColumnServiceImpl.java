@@ -6,6 +6,7 @@ import com.itlize.korera.model.Project;
 import com.itlize.korera.model.Resource;
 import com.itlize.korera.repository.ColumnRepository;
 import com.itlize.korera.repository.ProjectRepository;
+import com.itlize.korera.repository.ResourceRepository;
 import com.itlize.korera.repository.UserRepository;
 import com.itlize.korera.service.ColumnService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ public class ColumnServiceImpl implements ColumnService {
     private final UserRepository userRepository;
     @Autowired
     private final ColumnRepository columnRepository;
+    @Autowired
+    private final ResourceRepository resourceRepository;
     @Override
     public boolean columnContentExists(String content) {
         return columnRepository.existsByContent(content);
@@ -64,6 +67,18 @@ public class ColumnServiceImpl implements ColumnService {
     }
 
     @Override
+    public Column findById(Integer id) {
+        log.info("Fetching column with id: " + id + "...");
+        Column column =  columnRepository.findById(id).orElse(null);
+        if(column == null){
+            throw new NullPointerException("Column with id: " + id
+                    + " was not found in the database.");
+        }
+        log.info("Column info: " + column);
+        return column;
+    }
+
+    @Override
     public List<Column> findColumnsByType(ColumnType type) {
         log.info("Fetching list of columns with type: " + type.name() + "...");
         if(!columnRepository.existsByColumnType(type)){
@@ -75,17 +90,6 @@ public class ColumnServiceImpl implements ColumnService {
         return columnRepository.findAllByColumnType(type);
     }
 
-    @Override
-    public Column findById(Integer id) {
-        log.info("Fetching column with id: " + id + "...");
-        Column column =  columnRepository.findById(id).orElse(null);
-        if(column == null){
-            throw new NullPointerException("Column with id: " + id
-                    + " was not found in the database.");
-        }
-        log.info("Column info: " + column);
-        return column;
-    }
 
     @Override
     public List<Column> getColumsByResource(Resource resource) {
@@ -99,12 +103,44 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public Column updateContent(Column column, String content) {
+        log.info("Updating content " + column.getContent() + " to " + content);
+        column.setContent(content);
+        column.setTimeUpdated(LocalDateTime.now());
+        log.info("Column content " + column.getContent() + " has been updated to " + content);
+        log.info("Column: " + column);
+        return column;
+    }
+
+    @Override
+    public Column updateType(Column column, ColumnType type) {
         return null;
     }
 
     @Override
-    public Project updateType(Column column, ColumnType type) {
-        return null;
+    public Column updateResource(String content, String resourceName) {
+
+        log.info("Associating column with content " + content + "  to resource with name " + resourceName);
+
+        log.info("Finding column with content " + content + "...");
+        Column column =  columnRepository.findByContent(content).orElse(null);
+        log.info("Column info: " + column);
+
+        log.info("Finding resource with name " + resourceName + "...");
+        Resource resource =  resourceRepository.findByResourceName(resourceName).orElse(null);
+        log.info("Resource info: " + resource);
+
+        if(column == null){
+            throw new NullPointerException("Column with content: " + content
+                    + " was not found in the database.");
+        }else if(resource == null){
+            throw new NullPointerException("Resource with name: " +
+                    resourceName + " was not found in the database.");
+        }else{
+            column.setResource(resource);
+            log.info("Column's info after update operation: " + column);
+        }
+
+        return column;
     }
 
     @Override
