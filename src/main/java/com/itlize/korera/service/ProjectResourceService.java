@@ -7,6 +7,7 @@ import java.util.List;
 public interface ProjectResourceService {
     ProjectResource findById(Integer id);
     List<ProjectResource> getProjectResources();
+    ProjectResource updateProject(Project project);
 
     boolean projectResourceIdExists(Integer id);
     ProjectResource saveProjectResource(ProjectResource projectResource);
@@ -18,7 +19,6 @@ public interface ProjectResourceService {
     Resource findResourceByProjectResourceId(Integer projectResourceId);
     List<Resource> getResourcesByProject(Project project);
     List<Project> getProjectsByResource(Resource resource);
-    ProjectResource updateProject(Project project);
     ProjectResource updateResource(Resource resource);
     void deleteResourceFromProject(Project project, Resource resource);
     void deleteById(Integer id);
