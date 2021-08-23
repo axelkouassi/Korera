@@ -126,30 +126,20 @@ public class ColumnController {
         return new ResponseEntity<>(columnService.updateResource(content, resourcename), HttpStatus.OK);
     }
 
+    //Controller/api to delete column based on content
+    @GetMapping("/delete/content/{content}")
+    public ResponseEntity<?> deleteByContent(@PathVariable String content){
+        if (!columnService.columnContentExists(content)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column with  \""
+                    + content + "\" does not exists!");
+        }
+        columnService.deleteByContent(content);
+        return ResponseEntity.ok().body("Column with content \"" + content + "\" was successfully deleted.");
+    }
+
 
 
     /*
-    //Controller/api to update column's content
-    @PostMapping("/update/content/{content}/{newcontent}")
-    public ResponseEntity<?> updateCode(@PathVariable String content, @PathVariable String newcontent){
-        Column column =  columnService.findByContent(content);
-        if(!columnService.columnContentExists(content)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Column with content: " + content
-                    + " was not found in the database.");
-        }
-        columnService.updateContent(column,newcontent);
-        return new ResponseEntity<>(content, HttpStatus.OK);
-    }
-
-    //Controller/api to delete resource based on name
-    @GetMapping("/delete/name/{name}")
-    public ResponseEntity<?> deleteByName(@PathVariable String name){
-        if (!resourceService.resourceNameExists(name)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \"" + name + "\" does not exists!");
-        }
-        resourceService.deleteByName(name);
-        return ResponseEntity.ok().body("Resource \"" + name + "\" was successfully deleted.");
-    }
 
     //Controller/api to delete resource based on code
     @GetMapping("/delete/code/{code}")
