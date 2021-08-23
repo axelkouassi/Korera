@@ -202,7 +202,7 @@ public class ResourceServiceImpl implements ResourceService {
         Resource resource = resourceRepository.findByResourceName(resourceName).orElse(null);
         ProjectResource projectResource = projectResourceRepository.findById(projectResourceId).orElse(null);
         if (projectResource != null) {
-            projectResource.setProject(null);
+            projectResource.setResource(null);
         }
         return projectResource;
     }
