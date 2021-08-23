@@ -38,15 +38,15 @@ public class ColumnController {
 
     //Controller/api to create a column
     @PostMapping("/create")
-    public ResponseEntity<?> createColumn(@RequestBody Column column){
+    public ResponseEntity<?> createColumn(@RequestBody Column column) {
         columnService.saveColumn(column);
         return new ResponseEntity<>(column, HttpStatus.CREATED);
     }
 
     //Controller/api to get column information based on content
     @GetMapping("/content/{content}")
-    public ResponseEntity<?> getByContent(@PathVariable String content){
-        if (!columnService.columnContentExists(content)){
+    public ResponseEntity<?> getByContent(@PathVariable String content) {
+        if (!columnService.columnContentExists(content)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column content \""
                     + columnService.findByContent(content).getContent()
                     + "\" does not exists!");
@@ -56,8 +56,8 @@ public class ColumnController {
 
     //Controller/api to get column information based on column id
     @GetMapping("/id/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id){
-        if (!columnService.columnIdExists(id)){
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        if (!columnService.columnIdExists(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column with id \""
                     + columnService.findById(id).getColumnId()
                     + "\" does not exists!");
@@ -67,8 +67,8 @@ public class ColumnController {
 
     //Controller/api to get column information based on type
     @GetMapping("/type/{type}")
-    public ResponseEntity<?> getByType(@PathVariable ColumnType type){
-        if (!columnService.columnTypeExists(type)){
+    public ResponseEntity<?> getByType(@PathVariable ColumnType type) {
+        if (!columnService.columnTypeExists(type)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column type \""
                     + type + "\" does not exists!");
         }
@@ -77,49 +77,49 @@ public class ColumnController {
 
     //Controller/api to get all the columns based on resource name
     @GetMapping("/getcolumns/{resourcename}")
-    public ResponseEntity<?> getColumnsByResourceName(@PathVariable String resourcename){
+    public ResponseEntity<?> getColumnsByResourceName(@PathVariable String resourcename) {
         return ResponseEntity.ok().body(columnService.getColumsByResource(resourcename));
     }
 
     //Controller/api to get all the columns
     @GetMapping("/getcolumns")
-    public ResponseEntity<?> getColumns(){
+    public ResponseEntity<?> getColumns() {
         return ResponseEntity.ok().body(columnService.getColumns());
     }
 
     //Controller/api to update column content
     @PostMapping("/update/content/{content}/{newcontent}")
-    public ResponseEntity<?> updateContent(@PathVariable String content, @PathVariable String newcontent){
+    public ResponseEntity<?> updateContent(@PathVariable String content, @PathVariable String newcontent) {
         Column column = columnService.findByContent(content);
-        if (!columnService.columnContentExists(content)){
+        if (!columnService.columnContentExists(content)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column content  \"" + content
                     + "\" does not exists!");
         }
-        columnService.updateContent(column,newcontent);
+        columnService.updateContent(column, newcontent);
         return new ResponseEntity<>(column, HttpStatus.OK);
     }
 
     //Controller/api to update column's type
     @PostMapping("/update/type/{content}/{newtype}")
-    public ResponseEntity<?> updateType(@PathVariable String content, @PathVariable ColumnType newtype){
+    public ResponseEntity<?> updateType(@PathVariable String content, @PathVariable ColumnType newtype) {
         Column column = columnService.findByContent(content);
-        if (!columnService.columnContentExists(content)){
+        if (!columnService.columnContentExists(content)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column content  \"" + content
                     + "\" does not exists!");
         }
-        columnService.updateType(column,newtype);
+        columnService.updateType(column, newtype);
         return new ResponseEntity<>(column, HttpStatus.OK);
     }
 
     //Controller/api to update resource
     @PostMapping("/update/resource/{content}/{resourcename}")
-    public ResponseEntity<?> updateResource(@PathVariable String content, @PathVariable String resourcename){
-        Column column =  columnService.findByContent(content);
-        Resource resource =  resourceService.findByName(resourcename);
-        if(!columnService.columnContentExists(content)){
+    public ResponseEntity<?> updateResource(@PathVariable String content, @PathVariable String resourcename) {
+        Column column = columnService.findByContent(content);
+        Resource resource = resourceService.findByName(resourcename);
+        if (!columnService.columnContentExists(content)) {
             throw new NullPointerException("Column with content: " + content
                     + " was not found in the database.");
-        }else if(!resourceService.resourceNameExists(resourcename)){
+        } else if (!resourceService.resourceNameExists(resourcename)) {
             throw new NullPointerException("Resource with name: " +
                     resourcename + " was not found in the database.");
         }
@@ -128,8 +128,8 @@ public class ColumnController {
 
     //Controller/api to delete column based on content
     @GetMapping("/delete/content/{content}")
-    public ResponseEntity<?> deleteByContent(@PathVariable String content){
-        if (!columnService.columnContentExists(content)){
+    public ResponseEntity<?> deleteByContent(@PathVariable String content) {
+        if (!columnService.columnContentExists(content)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column with  \""
                     + content + "\" does not exists!");
         }
@@ -139,8 +139,8 @@ public class ColumnController {
 
     //Controller/api to delete column based on id
     @GetMapping("/delete/id/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer id){
-        if (!columnService.columnIdExists(id)){
+    public ResponseEntity<?> deleteById(@PathVariable Integer id) {
+        if (!columnService.columnIdExists(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column with id \""
                     + id + "\" does not exists!");
         }
@@ -150,8 +150,8 @@ public class ColumnController {
 
     //Controller/api to delete column based on type
     @GetMapping("/delete/type/{type}")
-    public ResponseEntity<?> deleteByType(@PathVariable ColumnType type){
-        if (!columnService.columnTypeExists(type)){
+    public ResponseEntity<?> deleteByType(@PathVariable ColumnType type) {
+        if (!columnService.columnTypeExists(type)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column type \""
                     + type + "\" does not exists!");
         }
@@ -159,23 +159,13 @@ public class ColumnController {
         return ResponseEntity.ok().body("Columns with type \"" + type + "\" were successfully deleted: ");
     }
 
-
-
-    /*
-
-
-
-    //Controller/api to delete all the resources
-    @GetMapping("/delete/resources")
-    public ResponseEntity<?> deleteResources(){
-        resourceService.deleteResources();
-        return ResponseEntity.ok().body("All resources have been successfully deleted.");
+    //Controller/api to delete all the columns
+    @GetMapping("/delete/columns")
+    public ResponseEntity<?> deleteColumns() {
+        columnService.deleteColumns();
+        return ResponseEntity.ok().body("All columns have been successfully deleted.");
     }
 
-
-
-
-   */
-
-
 }
+
+
