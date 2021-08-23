@@ -45,6 +45,14 @@ public class ResourceController {
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
+    //Controller/api to add a resource to a project
+    @PostMapping("/add/project/{resourcename}/{projectname}")
+    public ResponseEntity<?> createResource(@PathVariable String resourcename
+            , @PathVariable String projectname) {
+        return new ResponseEntity<>(resourceService.addResourceToProject(resourcename, projectname)
+                , HttpStatus.OK);
+    }
+
     //Controller/api to get resource information based on name
     @GetMapping("/name/{name}")
     public ResponseEntity<?> getByName(@PathVariable String name){

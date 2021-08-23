@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectResourceRepository extends JpaRepository<ProjectResource,Integer> {
+    ProjectResource findByProject_ProjectName(String projectName);
+    ProjectResource findByResource_ResourceName(String resourceName);
 }
