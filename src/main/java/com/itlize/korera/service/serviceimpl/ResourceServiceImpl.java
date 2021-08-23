@@ -109,6 +109,14 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
+    public List<ProjectResource> getProjectsByResource(String resourceName) {
+        log.info("Fetching list of projects based on resources...");
+        List<ProjectResource> list = projectResourceRepository.findByResource_ResourceName(resourceName);
+        log.info("List of all projects: " + list);
+        return projectResourceRepository.findByResource_ResourceName(resourceName);
+    }
+
+    @Override
     public List<Resource> getResources() {
         log.info("Fetching list of projects...");
         List<Resource> list = resourceRepository.findAll();
