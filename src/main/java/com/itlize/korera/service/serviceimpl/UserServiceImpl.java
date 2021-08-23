@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
         if(user == null){
             throw new UsernameNotFoundException("Username: " + username + " was not found in the database.");
         }
+        log.info("User's info: " + user);
 
         return user;
     }
