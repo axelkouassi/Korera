@@ -81,19 +81,34 @@ public class ColumnController {
         return ResponseEntity.ok().body(columnService.getColumns());
     }
 
-    /*
-
-    //Controller/api to update resource name
-    @PostMapping("/update/name/{name}/{newname}")
-    public ResponseEntity<?> updateName(@PathVariable String name, @PathVariable String newname){
-        Resource resource = resourceService.findByName(name);
-        if (!resourceService.resourceNameExists(name)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \"" + resource.getResourceName()
+    //Controller/api to update column content
+    @PostMapping("/update/content/{content}/{newcontent}")
+    public ResponseEntity<?> updateContent(@PathVariable String content, @PathVariable String newcontent){
+        Column column = columnService.findByContent(content);
+        if (!columnService.columnContentExists(content)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column content  \"" + content
                     + "\" does not exists!");
         }
-        resourceService.updateName(resource,newname);
-        return new ResponseEntity<>(resource, HttpStatus.OK);
+        columnService.updateContent(column,newcontent);
+        return new ResponseEntity<>(column, HttpStatus.OK);
     }
+
+    //Controller/api to update resource
+    @PostMapping("/update/resource/{content}/{resourcename}")
+    public ResponseEntity<?> updateResource(@PathVariable String content, @PathVariable String resourcename){
+        Column column =  columnService.findByContent(content);
+        Resource resource =  resourceService.findByName(resourcename);
+        if(!columnService.columnContentExists(content)){
+            throw new NullPointerException("Column with content: " + content
+                    + " was not found in the database.");
+        }else if(!resourceService.resourceNameExists(resourcename)){
+            throw new NullPointerException("Resource with name: " +
+                    resourcename + " was not found in the database.");
+        }
+        return new ResponseEntity<>(columnService.updateResource(content, resourcename), HttpStatus.OK);
+    }
+
+    /*
 
     //Controller/api to update resource code
     @PostMapping("/update/code/{code}/{newcode}")
@@ -151,22 +166,7 @@ public class ColumnController {
         return ResponseEntity.ok().body(projectService.getProjectsByUsername(username));
     }
 
-
-    //Controller/api to update user associated with project
-    @PostMapping("/update/user/{name}/{username}")
-    public ResponseEntity<?> updateUser(@PathVariable String name, @PathVariable String username){
-        User user = userService.findByUsername(username);
-        Project project = projectService.findByName(name);
-        if (!userService.usernameExists(user.getUsername())){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
-        }else if (!projectService.projectNameExists(project.getProjectName())){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \"" + project.getProjectName() + "\" does not exists!");
-        }else{
-            project.setUser(user);
-            projectService.updateUser(name, username);
-        }
-        return new ResponseEntity<>(project, HttpStatus.OK);
-    }*/
+   */
 
 
 }
