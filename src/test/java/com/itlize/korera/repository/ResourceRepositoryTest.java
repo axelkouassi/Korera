@@ -48,6 +48,15 @@ public class ResourceRepositoryTest {
         Assert.assertTrue(doesResourceExists);
     }
 
+    @Test
+    public void findByResourceNameTest(){
+        String name = "code1";
+
+        Resource resource = resourceRepository.findByResourceName(name).orElse(null);
+
+        Assert.assertNotNull(resource);
+    }
+
     //Update Resource
     @Test
     public void updateResourceByIdTest(){
