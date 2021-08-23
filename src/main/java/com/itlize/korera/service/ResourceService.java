@@ -1,12 +1,9 @@
 package com.itlize.korera.service;
 
-import com.itlize.korera.model.Project;
 import com.itlize.korera.model.ProjectResource;
 import com.itlize.korera.model.Resource;
-import com.itlize.korera.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ResourceService {
     boolean resourceNameExists(String name);
@@ -22,7 +19,6 @@ public interface ResourceService {
     List<Resource> getResources();
     Resource updateName(Resource resource, String name);
     Resource updateCode(Resource resource, String code);
-    Project updateCode(Project project, String code);
     ProjectResource updateProject(Integer projectResourceId, String projectName);
     ProjectResource updateResource(Integer projectResourceId, String projectName);
     ProjectResource removeProject(Integer projectResourceId, String projectName);
