@@ -139,11 +139,6 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public Project updateCode(Project project, String code) {
-        return null;
-    }
-
-    @Override
     public ProjectResource updateProject(Integer projectResourceId, String projectName) {
         Project project = projectRepository.findByProjectName(projectName).orElse(null);
         ProjectResource projectResource = projectResourceRepository.findById(projectResourceId).orElse(null);
