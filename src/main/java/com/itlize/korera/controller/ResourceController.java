@@ -93,6 +93,13 @@ public class ResourceController {
                 , HttpStatus.OK);
     }
 
+    //Controller/api to get a list of projects based on resource
+    @GetMapping("/projects/resource/{resourcename}")
+    public ResponseEntity<?> getProjectsByResource(@PathVariable String resourcename) {
+        return new ResponseEntity<>(resourceService.getProjectsByResource(resourcename)
+                , HttpStatus.OK);
+    }
+
     //Controller/api to get all the resources' information
     @GetMapping("/getresources")
     public ResponseEntity<?> getResources(){
