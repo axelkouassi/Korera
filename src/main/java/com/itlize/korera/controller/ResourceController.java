@@ -130,6 +130,16 @@ public class ResourceController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
+    //Controller/api to update project associated with a resource
+    @PostMapping("/update/project/{projectresourceid}/{projectname}")
+    public ResponseEntity<?> updateProject(@PathVariable Integer projectresourceid, @PathVariable String projectname) {
+        ProjectResource projectResource = projectResourceService.findById(projectresourceid);
+        resourceService.updateProject(projectresourceid,projectname);
+        return new ResponseEntity<>("Project with name " + projectname +
+                " has now been assigned to resource with name "
+                + projectResource.getResource().getResourceName(), HttpStatus.OK);
+    }
+
     //Controller/api to delete resource based on name
     @GetMapping("/delete/name/{name}")
     public ResponseEntity<?> deleteByName(@PathVariable String name){
