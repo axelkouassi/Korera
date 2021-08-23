@@ -150,21 +150,21 @@ public class ColumnServiceImpl implements ColumnService {
 
     @Override
     public void deleteByContent(String content) {
-
+        columnRepository.deleteByContent(content);
     }
 
     @Override
     public void deleteByType(ColumnType type) {
-
+        columnRepository.deleteByColumnType(type);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        columnRepository.deleteById(id);
     }
 
     @Override
     public void deleteColumns() {
-
+        columnRepository.deleteAll();
     }
 }
