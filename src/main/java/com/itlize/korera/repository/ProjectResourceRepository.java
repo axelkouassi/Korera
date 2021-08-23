@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ProjectResourceRepository extends JpaRepository<ProjectResource,Integer> {
     List<ProjectResource> findByProject_ProjectName(String projectName);
-    ProjectResource findByResource_ResourceName(String resourceName);
+    List<ProjectResource> findByResource_ResourceName(String resourceName);
 
 }
