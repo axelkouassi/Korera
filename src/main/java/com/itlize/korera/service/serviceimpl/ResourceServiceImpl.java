@@ -1,9 +1,13 @@
 package com.itlize.korera.service.serviceimpl;
 
 import com.itlize.korera.model.Project;
+import com.itlize.korera.model.ProjectResource;
 import com.itlize.korera.model.Resource;
+import com.itlize.korera.repository.ProjectRepository;
+import com.itlize.korera.repository.ProjectResourceRepository;
 import com.itlize.korera.repository.ResourceRepository;
 import com.itlize.korera.repository.UserRepository;
+import com.itlize.korera.service.ProjectResourceService;
 import com.itlize.korera.service.ResourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +25,12 @@ import java.util.List;
 public class ResourceServiceImpl implements ResourceService {
     @Autowired
     private final ResourceRepository resourceRepository;
+    @Autowired
+    private final ProjectRepository projectRepository;
+
+    @Autowired
+    private final ProjectResourceRepository projectResourceRepository;
+
     @Override
     public boolean resourceNameExists(String name) {
         return resourceRepository.findByResourceName(name).isPresent();
@@ -41,6 +51,20 @@ public class ResourceServiceImpl implements ResourceService {
         resource.setTimeCreated(LocalDateTime.now());
         resource.setTimeUpdated(LocalDateTime.now());
         return resourceRepository.save(resource);
+    }
+
+    @Override
+    public ProjectResource addResourceToProject(String resourceName, String projectName) {
+        Resource resource = resourceRepository.findByResourceName(resourceName).orElse(null);
+        Project project = projectRepository.findByProjectName(projectName).orElse(null);
+        ProjectResource projectResource = new ProjectResource();
+        projectResource.setResource(resource);
+        projectResource.setProject(project);
+        projectResource.setTimeCreated(LocalDateTime.now());
+        projectResource.setTimeUpdated(LocalDateTime.now());
+        projectResourceRepository.save(projectResource);
+
+        return projectResource;
     }
 
     @Override
@@ -77,8 +101,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Resource> getResourcesByProject(Project project) {
-        return null;
+    public List<ProjectResource> getResourcesByProject(String projectName) {
+        log.info("Fetching list of resources based on project...");
+        List<ProjectResource> list = projectResourceRepository.findByProject_ProjectName(projectName);
+        log.info("List of all resources: " + list);
+        return projectResourceRepository.findByProject_ProjectName(projectName);
     }
 
     @Override
