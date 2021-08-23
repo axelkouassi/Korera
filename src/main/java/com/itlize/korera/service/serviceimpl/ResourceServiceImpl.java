@@ -6,8 +6,6 @@ import com.itlize.korera.model.Resource;
 import com.itlize.korera.repository.ProjectRepository;
 import com.itlize.korera.repository.ProjectResourceRepository;
 import com.itlize.korera.repository.ResourceRepository;
-import com.itlize.korera.repository.UserRepository;
-import com.itlize.korera.service.ProjectResourceService;
 import com.itlize.korera.service.ResourceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -187,6 +185,26 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public void deleteById(Integer id) {
         resourceRepository.deleteById(id);
+    }
+
+    @Override
+    public ProjectResource removeProject(Integer projectResourceId, String projectName) {
+        Project project = projectRepository.findByProjectName(projectName).orElse(null);
+        ProjectResource projectResource = projectResourceRepository.findById(projectResourceId).orElse(null);
+        if (projectResource != null) {
+            projectResource.setProject(null);
+        }
+        return projectResource;
+    }
+
+    @Override
+    public ProjectResource removeResource(Integer projectResourceId, String resourceName) {
+        Resource resource = resourceRepository.findByResourceName(resourceName).orElse(null);
+        ProjectResource projectResource = projectResourceRepository.findById(projectResourceId).orElse(null);
+        if (projectResource != null) {
+            projectResource.setProject(null);
+        }
+        return projectResource;
     }
 
     @Override
