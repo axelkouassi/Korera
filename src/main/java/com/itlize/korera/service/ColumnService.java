@@ -19,7 +19,8 @@ public interface ColumnService {
     List<Column> getColumsByResource(Resource resource);
     List<Column> getColumns();
     Column updateContent(Column column, String content);
-    Project updateType(Column column, ColumnType type);
+    Column updateType(Column column, ColumnType type);
+    Column updateResource(String content, String resourceName);
     void deleteByContent(String content);
     void deleteByType(ColumnType type);
     void deleteById(Integer id);
