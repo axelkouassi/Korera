@@ -82,7 +82,7 @@ public class Column {
         this.timeUpdated = timeUpdated;
     }
 
-    @Override
+   /* @Override
     public String toString() {
         return "Column{" +
                 "columnId=" + columnId +
@@ -92,5 +92,5 @@ public class Column {
                 ", timeCreated=" + timeCreated +
                 ", timeUpdated=" + timeUpdated +
                 '}';
-    }
+    }*/
 }
