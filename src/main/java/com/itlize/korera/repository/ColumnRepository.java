@@ -14,6 +14,7 @@ public interface ColumnRepository extends JpaRepository<Column,Integer> {
     Optional<Column> findByContent(String content);
     Optional<Column> findByColumnType(ColumnType type);
     List<Column> findAllByColumnType(ColumnType type);
+    List<Column> findAllByResource_ResourceName(String resourceName);
     boolean existsByContent(String content);
     boolean existsByColumnType(ColumnType type);
     void deleteByContent(String content);
