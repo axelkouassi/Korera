@@ -1,6 +1,7 @@
 package com.itlize.korera.service;
 
 import com.itlize.korera.model.Project;
+import com.itlize.korera.model.ProjectResource;
 import com.itlize.korera.model.Resource;
 import com.itlize.korera.model.User;
 
@@ -12,10 +13,11 @@ public interface ResourceService {
     boolean resourceCodeExists(String code);
     boolean resourceIdExists(Integer id);
     Resource saveResource(Resource resource);
+    ProjectResource addResourceToProject(String resourceName, String projectName);
     Resource findByName(String name);
     Resource findByCode(String code);
     Resource findById(Integer id);
-    List<Resource> getResourcesByProject(Project project);
+    List<ProjectResource> getResourcesByProject(String projectName);
     List<Resource> getResources();
     Resource updateName(Resource resource, String name);
     Resource updateCode(Resource resource, String code);
