@@ -99,6 +99,18 @@ public class ColumnController {
         return new ResponseEntity<>(column, HttpStatus.OK);
     }
 
+    //Controller/api to update column's type
+    @PostMapping("/update/type/{content}/{newtype}")
+    public ResponseEntity<?> updateType(@PathVariable String content, @PathVariable ColumnType newtype){
+        Column column = columnService.findByContent(content);
+        if (!columnService.columnContentExists(content)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column content  \"" + content
+                    + "\" does not exists!");
+        }
+        columnService.updateType(column,newtype);
+        return new ResponseEntity<>(column, HttpStatus.OK);
+    }
+
     //Controller/api to update resource
     @PostMapping("/update/resource/{content}/{resourcename}")
     public ResponseEntity<?> updateResource(@PathVariable String content, @PathVariable String resourcename){
