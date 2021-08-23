@@ -180,38 +180,20 @@ public class ResourceController {
         return ResponseEntity.ok().body("Resource with id \"" + id + "\" was successfully deleted.");
     }
 
+    //Controller/api to remove project associated with a resource
+    @PostMapping("/remove/project/{projectresourceid}/{projectname}")
+    public ResponseEntity<?> removeProject(@PathVariable Integer projectresourceid, @PathVariable String projectname) {
+        ProjectResource projectResource = projectResourceService.findById(projectresourceid);
+        resourceService.removeProject(projectresourceid,projectname);
+        return new ResponseEntity<>("Project with name " + projectname +
+                " is no longer associated with resource with name "
+                + projectResource.getResource().getResourceName(), HttpStatus.OK);
+    }
+
     //Controller/api to delete all the resources
     @GetMapping("/delete/resources")
     public ResponseEntity<?> deleteResources(){
         resourceService.deleteResources();
         return ResponseEntity.ok().body("All resources have been successfully deleted.");
     }
-
-    /*
-
-    //Controller/api to get all the projects' information by user
-    @GetMapping("/getprojects/{username}")
-    public ResponseEntity<?> getProjectsByUsername(@PathVariable String username){
-        return ResponseEntity.ok().body(projectService.getProjectsByUsername(username));
-    }
-
-
-    //Controller/api to update user associated with project
-    @PostMapping("/update/user/{name}/{username}")
-    public ResponseEntity<?> updateUser(@PathVariable String name, @PathVariable String username){
-        User user = userService.findByUsername(username);
-        Project project = projectService.findByName(name);
-        if (!userService.usernameExists(user.getUsername())){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Username \"" + username + "\" does not exists!");
-        }else if (!projectService.projectNameExists(project.getProjectName())){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project \"" + project.getProjectName() + "\" does not exists!");
-        }else{
-            project.setUser(user);
-            projectService.updateUser(name, username);
-        }
-        return new ResponseEntity<>(project, HttpStatus.OK);
-    }
-
-
-    */
 }
