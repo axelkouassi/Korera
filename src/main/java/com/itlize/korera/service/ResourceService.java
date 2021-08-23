@@ -24,6 +24,7 @@ public interface ResourceService {
     Resource updateCode(Resource resource, String code);
     Project updateCode(Project project, String code);
     ProjectResource updateProject(Integer projectResourceId, String projectName);
+    ProjectResource updateResource(Integer projectResourceId, String projectName);
     void deleteByName(String name);
     void deleteByCode(String code);
     void deleteById(Integer id);
