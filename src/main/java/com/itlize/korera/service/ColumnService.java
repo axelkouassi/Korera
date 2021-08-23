@@ -13,9 +13,9 @@ public interface ColumnService {
     boolean columnTypeExists(ColumnType type);
     boolean columnIdExists(Integer id);
     Column saveColumn(Column column);
+    Column findById(Integer id);
     Column findByContent(String content);
     List<Column> findColumnsByType(ColumnType type);
-    Column findById(Integer id);
     List<Column> getColumsByResource(String resourceName);
     List<Column> getColumns();
     Column updateContent(Column column, String content);
