@@ -71,4 +71,6 @@ public class ProjectResource {
     public void setTimeUpdated(LocalDateTime timeUpdated) {
         this.timeUpdated = timeUpdated;
     }
+
+
 }
