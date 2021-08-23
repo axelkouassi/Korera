@@ -75,6 +75,12 @@ public class ColumnController {
         return ResponseEntity.ok().body(columnService.findColumnsByType(type));
     }
 
+    //Controller/api to get all the columns based on resource name
+    @GetMapping("/getcolumns/{resourcename}")
+    public ResponseEntity<?> getColumnsByResourceName(@PathVariable String resourcename){
+        return ResponseEntity.ok().body(columnService.getColumsByResource(resourcename));
+    }
+
     //Controller/api to get all the columns
     @GetMapping("/getcolumns")
     public ResponseEntity<?> getColumns(){
@@ -160,11 +166,7 @@ public class ColumnController {
     }
 
 
-    //Controller/api to get all the projects' information by user
-    @GetMapping("/getprojects/{username}")
-    public ResponseEntity<?> getProjectsByUsername(@PathVariable String username){
-        return ResponseEntity.ok().body(projectService.getProjectsByUsername(username));
-    }
+
 
    */
 
