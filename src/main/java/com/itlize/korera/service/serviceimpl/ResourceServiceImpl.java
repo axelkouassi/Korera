@@ -155,7 +155,23 @@ public class ResourceServiceImpl implements ResourceService {
         if (projectResource != null) {
             projectResource.setTimeUpdated(LocalDateTime.now());
         }
-        return null;
+        return projectResource;
+    }
+
+    @Override
+    public ProjectResource updateResource(Integer projectResourceId, String resourceName) {
+        Resource resource = resourceRepository.findByResourceName(resourceName).orElse(null);
+        ProjectResource projectResource = projectResourceRepository.findById(projectResourceId).orElse(null);
+        if (resource == null) {
+            throw  new NullPointerException("Resource is null");
+        }
+        if (projectResource != null) {
+            projectResource.setResource(resource);
+        }
+        if (projectResource != null) {
+            projectResource.setTimeUpdated(LocalDateTime.now());
+        }
+        return projectResource;
     }
 
     @Override
