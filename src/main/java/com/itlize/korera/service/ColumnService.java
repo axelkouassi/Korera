@@ -16,7 +16,7 @@ public interface ColumnService {
     Column findByContent(String content);
     List<Column> findColumnsByType(ColumnType type);
     Column findById(Integer id);
-    List<Column> getColumsByResource(Resource resource);
+    List<Column> getColumsByResource(String resourceName);
     List<Column> getColumns();
     Column updateContent(Column column, String content);
     Column updateType(Column column, ColumnType type);
