@@ -13,5 +13,7 @@ public interface ProjectResourceRepository extends JpaRepository<ProjectResource
     List<ProjectResource> findByProject_ProjectName(String projectName);
     List<ProjectResource> findByResource_ResourceName(String resourceName);
     ProjectResource findByProject(Project project);
+    void deleteByProject_ProjectName(String projectName);
+    void deleteByResource_ResourceName(String resourceName);
 
 }
