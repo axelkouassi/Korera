@@ -2,10 +2,8 @@ package com.itlize.korera.service.serviceimpl;
 
 import com.itlize.korera.model.Column;
 import com.itlize.korera.model.ColumnType;
-import com.itlize.korera.model.Project;
 import com.itlize.korera.model.Resource;
 import com.itlize.korera.repository.ColumnRepository;
-import com.itlize.korera.repository.ProjectRepository;
 import com.itlize.korera.repository.ResourceRepository;
 import com.itlize.korera.repository.UserRepository;
 import com.itlize.korera.service.ColumnService;
@@ -24,8 +22,6 @@ import java.util.List;
 @Slf4j // logs
 public class ColumnServiceImpl implements ColumnService {
 
-    @Autowired
-    private final UserRepository userRepository;
     @Autowired
     private final ColumnRepository columnRepository;
     @Autowired
