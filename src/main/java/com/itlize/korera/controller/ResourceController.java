@@ -190,6 +190,16 @@ public class ResourceController {
                 + projectResource.getResource().getResourceName(), HttpStatus.OK);
     }
 
+    //Controller/api to remove resource associated with a project
+    @PostMapping("/remove/resource/{projectresourceid}/{resourcename}")
+    public ResponseEntity<?> removeResource(@PathVariable Integer projectresourceid, @PathVariable String resourcename) {
+        ProjectResource projectResource = projectResourceService.findById(projectresourceid);
+        resourceService.removeResource(projectresourceid,resourcename);
+        return new ResponseEntity<>("Resource with name " + resourcename +
+                " is no longer associated with project with name "
+                + projectResource.getProject().getProjectName(), HttpStatus.OK);
+    }
+
     //Controller/api to delete all the resources
     @GetMapping("/delete/resources")
     public ResponseEntity<?> deleteResources(){
