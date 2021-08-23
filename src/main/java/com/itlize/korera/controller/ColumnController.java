@@ -137,29 +137,33 @@ public class ColumnController {
         return ResponseEntity.ok().body("Column with content \"" + content + "\" was successfully deleted.");
     }
 
+    //Controller/api to delete column based on id
+    @GetMapping("/delete/id/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id){
+        if (!columnService.columnIdExists(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column with id \""
+                    + id + "\" does not exists!");
+        }
+        columnService.deleteById(id);
+        return ResponseEntity.ok().body("Column with id \"" + id + "\" was successfully deleted.");
+    }
+
+    //Controller/api to delete column based on type
+    @GetMapping("/delete/type/{type}")
+    public ResponseEntity<?> deleteByType(@PathVariable ColumnType type){
+        if (!columnService.columnTypeExists(type)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Column type \""
+                    + type + "\" does not exists!");
+        }
+        columnService.deleteByType(type);
+        return ResponseEntity.ok().body("Columns with type \"" + type + "\" were successfully deleted: ");
+    }
+
 
 
     /*
 
-    //Controller/api to delete resource based on code
-    @GetMapping("/delete/code/{code}")
-    public ResponseEntity<?> deleteByCode(@PathVariable String code){
-        if (!resourceService.resourceCodeExists(code)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \"" + code + "\" does not exists!");
-        }
-        resourceService.deleteByCode(code);
-        return ResponseEntity.ok().body("Resource \"" + code + "\" was successfully deleted.");
-    }
 
-    //Controller/api to delete resource by id
-    @GetMapping("/delete/id/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer id){
-        if (!resourceService.resourceIdExists(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource with id \"" + id + "\" does not exists!");
-        }
-        resourceService.deleteById(id);
-        return ResponseEntity.ok().body("Resource with id \"" + id + "\" was successfully deleted.");
-    }
 
     //Controller/api to delete all the resources
     @GetMapping("/delete/resources")
