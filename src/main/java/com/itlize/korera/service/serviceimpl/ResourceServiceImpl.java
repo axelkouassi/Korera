@@ -146,6 +146,19 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
+    public ProjectResource updateProject(Integer projectResourceId, String projectName) {
+        Project project = projectRepository.findByProjectName(projectName).orElse(null);
+        ProjectResource projectResource = projectResourceRepository.findById(projectResourceId).orElse(null);
+        if (projectResource != null) {
+            projectResource.setProject(project);
+        }
+        if (projectResource != null) {
+            projectResource.setTimeUpdated(LocalDateTime.now());
+        }
+        return null;
+    }
+
+    @Override
     public void deleteByName(String name) {
         resourceRepository.deleteByResourceName(name);
     }
