@@ -93,7 +93,7 @@ public class Resource {
         this.timeUpdated = timeUpdated;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Resource{" +
                 "resourceId=" + resourceId +
@@ -104,5 +104,5 @@ public class Resource {
                 ", timeCreated=" + timeCreated +
                 ", timeUpdated=" + timeUpdated +
                 '}';
-    }
+    }*/
 }
