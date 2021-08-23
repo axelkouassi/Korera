@@ -92,8 +92,8 @@ public class ColumnServiceImpl implements ColumnService {
 
 
     @Override
-    public List<Column> getColumsByResource(Resource resource) {
-        return null;
+    public List<Column> getColumsByResource(String resourceName) {
+        return columnRepository.findAllByResource_ResourceName(resourceName);
     }
 
     @Override
