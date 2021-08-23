@@ -114,18 +114,19 @@ public class ColumnController {
         return new ResponseEntity<>(columnService.updateResource(content, resourcename), HttpStatus.OK);
     }
 
-    /*
 
-    //Controller/api to update resource code
-    @PostMapping("/update/code/{code}/{newcode}")
-    public ResponseEntity<?> updateCode(@PathVariable String code, @PathVariable String newcode){
-        Resource resource = resourceService.findByCode(code);
-        if (!resourceService.resourceCodeExists(code)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource \"" + resource.getResourceCode()
-                    + "\" does not exists!");
+
+    /*
+    //Controller/api to update column's content
+    @PostMapping("/update/content/{content}/{newcontent}")
+    public ResponseEntity<?> updateCode(@PathVariable String content, @PathVariable String newcontent){
+        Column column =  columnService.findByContent(content);
+        if(!columnService.columnContentExists(content)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Column with content: " + content
+                    + " was not found in the database.");
         }
-        resourceService.updateCode(resource,newcode);
-        return new ResponseEntity<>(resource, HttpStatus.OK);
+        columnService.updateContent(column,newcontent);
+        return new ResponseEntity<>(content, HttpStatus.OK);
     }
 
     //Controller/api to delete resource based on name
