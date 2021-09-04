@@ -1,5 +1,7 @@
 package com.itlize.korera.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name="user")
+@JsonIdentityInfo(generator= ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
