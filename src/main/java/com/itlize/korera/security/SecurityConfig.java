@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll()
                 // redirect to the login page
                 .logoutRequestMatcher(new AntPathRequestMatcher("user/logout","POST"))
-                .and().formLogin().loginPage("/user/login").and()
+                .and()
                 .exceptionHandling().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
