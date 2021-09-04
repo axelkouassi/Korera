@@ -51,7 +51,7 @@ public class UserController {
     }
 
     //Controller/api to log in/generate authentication token to already registered account
-    @GetMapping( "/login")
+    @PostMapping( "/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody User user )  throws Exception {
         try {
             authenticationManager.authenticate(
